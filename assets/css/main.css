@@ -1,0 +1,70 @@
+/* 自定义样式 */
+@import 'tailwindcss';
+@import '@nuxt/ui';
+
+/* 全局样式 */
+html {
+  color-scheme: dark;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  @apply bg-gray-900 text-gray-100;
+}
+
+/* 密码强度指示器样式 */
+.strength-weak {
+  @apply bg-red-500;
+}
+
+.strength-medium {
+  @apply bg-yellow-500;
+}
+
+.strength-strong {
+  @apply bg-green-500;
+}
+
+/* 动画效果 */
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.3s ease;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+}
+
+/* 响应式设计优化 */
+@media (max-width: 768px) {
+  .container {
+    @apply px-4;
+  }
+}
+
+/* 深色模式优化 */
+.dark {
+  color-scheme: dark;
+}
+
+/* 密码输入框样式 */
+.password-input {
+  font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+  letter-spacing: 0.1em;
+}
+
+/* 按钮悬停效果 */
+.btn-hover {
+  transition: all 0.2s ease-in-out;
+}
+
+.btn-hover:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+/* 深色主题优化 */
+.dark .btn-hover:hover {
+  box-shadow: 0 4px 12px rgba(255, 255, 255, 0.1);
+}
