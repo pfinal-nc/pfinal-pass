@@ -28,22 +28,13 @@ jobs:
     - name: Setup Node.js
       uses: actions/setup-node@v4
       with:
-        node-version: '18'
+        node-version: '20'
         
     - name: Install dependencies
       run: |
-        # Clean install to avoid native binding issues
+        # Clean install with Node.js 20
         rm -rf node_modules package-lock.json
-        npm install --no-optional --ignore-scripts
-      
-    - name: Prepare Nuxt
-      run: |
-        # Set environment variables to avoid native binding issues
-        export NODE_OPTIONS="--max-old-space-size=4096"
-        export NUXT_TELEMETRY_DISABLED=1
-        export NODE_ENV=production
-        # Try to prepare with error handling
-        npm run prepare || echo "Prepare failed, continuing with build"
+        npm install
       
     - name: Build
       run: |
