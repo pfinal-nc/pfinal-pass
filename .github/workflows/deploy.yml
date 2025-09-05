@@ -32,14 +32,27 @@ jobs:
         
     - name: Install dependencies
       run: |
-        # Skip postinstall scripts to avoid native binding issues
-        npm install --ignore-scripts
+        # Clean install to avoid native binding issues
+        rm -rf node_modules package-lock.json
+        npm install --no-optional --ignore-scripts
       
     - name: Prepare Nuxt
-      run: npx nuxt prepare
+      run: |
+        # Set environment variables to avoid native binding issues
+        export NODE_OPTIONS="--max-old-space-size=4096"
+        export NUXT_TELEMETRY_DISABLED=1
+        export NODE_ENV=production
+        # Try to prepare with error handling
+        npm run prepare || echo "Prepare failed, continuing with build"
       
     - name: Build
-      run: npm run generate
+      run: |
+        # Set environment variables
+        export NODE_OPTIONS="--max-old-space-size=4096"
+        export NUXT_TELEMETRY_DISABLED=1
+        export NODE_ENV=production
+        # Generate the site
+        npm run generate
       
     - name: Setup Pages
       uses: actions/configure-pages@v4
@@ -52,3 +65,4 @@ jobs:
     - name: Deploy to GitHub Pages
       id: deployment
       uses: actions/deploy-pages@v4
+

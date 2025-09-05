@@ -72,8 +72,9 @@ useHead({
           priceCurrency: 'USD'
         },
         creator: {
-          '@type': 'Organization',
-          name: 'PFinalClub'
+          '@type': 'Person',
+          name: 'pfinal-nc',
+          url: 'https://github.com/pfinal-nc'
         }
       })
     }

@@ -165,7 +165,7 @@
         </p>
         <div class="flex flex-wrap gap-4 my-4">
           <UButton 
-            to="https://github.com/yourusername/pfinal-pass/issues" 
+            to="https://github.com/pfinal-nc/pfinal-pass/issues" 
             target="_blank"
             color="gray"
             variant="outline"
@@ -174,7 +174,7 @@
             GitHub Issues
           </UButton>
           <UButton 
-            to="mailto:privacy@example.com"
+            to="mailto:lampxiezi@gmail.com"
             color="gray"
             variant="outline"
             icon="i-heroicons-envelope"

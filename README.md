@@ -157,10 +157,10 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 📞 Contact
 
-- **GitHub**: [@yourusername](https://github.com/yourusername)
-- **Email**: contact@example.com
+- **GitHub**: [@pfinal-nc](https://github.com/pfinal-nc)
+- **Email**: lampxiezi@gmail.com
 - **Website**: [https://pwd.friday-go.icu](https://pwd.friday-go.icu)
 
 ---
 
-Made with ❤️ by [PFinalClub](https://github.com/PFinalClub)
+Made with ❤️ by [pfinal-nc](https://github.com/pfinal-nc)

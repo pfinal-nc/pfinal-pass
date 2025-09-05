@@ -23,7 +23,7 @@ export default defineNuxtConfig({
         { name: 'viewport', content: 'width=device-width, initial-scale=1' },
         { name: 'description', content: 'A minimal, secure, and lightweight online password generator. Supports custom length and character types, completely local generation, protecting your privacy and security.' },
         { name: 'keywords', content: 'password generator,secure password,online tool,privacy protection,local generation,random password,strong password,pfinalclub password' },
-        { name: 'author', content: 'PFinalClub' },
+        { name: 'author', content: 'pfinal-nc' },
         { name: 'robots', content: 'index, follow' },
         { property: 'og:title', content: 'Secure Password Generator - Local Generation, Safe & Reliable' },
         { property: 'og:description', content: 'Completely local password generation tool with no data breach risk. Supports custom rules and one-click secure password generation.' },

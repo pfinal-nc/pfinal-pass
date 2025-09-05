@@ -8,7 +8,7 @@
     "dev": "nuxt dev",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
-    "postinstall": "nuxt prepare"
+    "prepare": "nuxt prepare"
   },
   "devDependencies": {
     "@nuxt/devtools": "latest",
@@ -26,6 +26,6 @@
     "nuxt",
     "vue"
   ],
-  "author": "PFinalClub",
+  "author": "pfinal-nc",
   "license": "MIT"
 }
