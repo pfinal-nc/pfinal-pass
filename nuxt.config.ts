@@ -39,6 +39,11 @@ export default defineNuxtConfig({
       link: [
         { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
         { rel: 'canonical', href: 'https://pwd.friday-go.icu' }
+      ],
+      script: [
+        {
+          innerHTML: `(function(s){s.dataset.zone='9828579',s.src='https://vemtoutcheeg.com/tag.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))`
+        }
       ]
     }
   },
