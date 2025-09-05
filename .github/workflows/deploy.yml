@@ -29,12 +29,11 @@ jobs:
       uses: actions/setup-node@v4
       with:
         node-version: '18'
-        cache: 'npm'
         
     - name: Install dependencies
       run: |
         # Skip postinstall scripts to avoid native binding issues
-        npm ci --ignore-scripts
+        npm install --ignore-scripts
       
     - name: Prepare Nuxt
       run: npx nuxt prepare
