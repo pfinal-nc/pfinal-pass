@@ -29,30 +29,18 @@ jobs:
       uses: actions/setup-node@v4
       with:
         node-version: '18'
-        
-    - name: Setup pnpm
-      uses: pnpm/action-setup@v4
-      with:
-        version: latest
-        
-    - name: Get pnpm store directory
-      shell: bash
-      run: |
-        echo "STORE_PATH=$(pnpm store path --silent)" >> $GITHUB_ENV
-        
-    - name: Setup pnpm cache
-      uses: actions/cache@v4
-      with:
-        path: ${{ env.STORE_PATH }}
-        key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
-        restore-keys: |
-          ${{ runner.os }}-pnpm-store-
+        cache: 'npm'
         
     - name: Install dependencies
-      run: pnpm install --no-frozen-lockfile
+      run: |
+        # Skip postinstall scripts to avoid native binding issues
+        npm ci --ignore-scripts
+      
+    - name: Prepare Nuxt
+      run: npx nuxt prepare
       
     - name: Build
-      run: pnpm run generate
+      run: npm run generate
       
     - name: Setup Pages
       uses: actions/configure-pages@v4
