@@ -25,9 +25,9 @@
             <div class="flex items-start">
               <UIcon name="i-heroicons-shield-check" class="w-6 h-6 text-green-600 mr-3 mt-1" />
               <div>
-                <h3 class="font-semibold mb-1">Completely Local Generation</h3>
+                <h3 class="font-semibold mb-1">Client-Side Password Generation</h3>
                 <p class="text-sm text-gray-600 dark:text-gray-400">
-                  All passwords are generated in your browser without going through any server
+                  All passwords are generated locally in your browser with no server involvement - true offline password tool
                 </p>
               </div>
             </div>
@@ -37,9 +37,9 @@
             <div class="flex items-start">
               <UIcon name="i-heroicons-eye-slash" class="w-6 h-6 text-blue-600 mr-3 mt-1" />
               <div>
-                <h3 class="font-semibold mb-1">No Data Collection</h3>
+                <h3 class="font-semibold mb-1">Zero Data Collection</h3>
                 <p class="text-sm text-gray-600 dark:text-gray-400">
-                  We do not collect, store, or transmit any of your information
+                  Privacy focused password generator with no data collection, storage or transmission
                 </p>
               </div>
             </div>
@@ -49,9 +49,9 @@
             <div class="flex items-start">
               <UIcon name="i-heroicons-cog-6-tooth" class="w-6 h-6 text-purple-600 mr-3 mt-1" />
               <div>
-                <h3 class="font-semibold mb-1">Custom Rules</h3>
+                <h3 class="font-semibold mb-1">Customizable Rules</h3>
                 <p class="text-sm text-gray-600 dark:text-gray-400">
-                  Support for custom password length and character types
+                  Fully customizable password length (6-32 chars) and character types for strong password creator
                 </p>
               </div>
             </div>
@@ -63,7 +63,7 @@
               <div>
                 <h3 class="font-semibold mb-1">Strength Assessment</h3>
                 <p class="text-sm text-gray-600 dark:text-gray-400">
-                  Real-time password strength display to help you generate more secure passwords
+                  Real-time password strength checker with visual indicators for secure password generation
                 </p>
               </div>
             </div>
@@ -101,19 +101,19 @@
         <ul class="space-y-2">
           <li class="flex items-center">
             <UIcon name="i-heroicons-check" class="w-4 h-4 text-green-600 mr-2" />
-            Temporary account password generation
+            Temporary account password generation for wifi networks and online services
           </li>
           <li class="flex items-center">
             <UIcon name="i-heroicons-check" class="w-4 h-4 text-green-600 mr-2" />
-            Test environment password creation
+            Test environment password creation for developers and QA teams
           </li>
           <li class="flex items-center">
             <UIcon name="i-heroicons-check" class="w-4 h-4 text-green-600 mr-2" />
-            Quick secure password generation
+            Quick secure password generation for personal accounts
           </li>
           <li class="flex items-center">
             <UIcon name="i-heroicons-check" class="w-4 h-4 text-green-600 mr-2" />
-            Password policy validation
+            Password policy validation for enterprise security requirements
           </li>
         </ul>
         
@@ -164,9 +164,38 @@
 
 <script setup>
 useSeoMeta({
-  title: 'About Us - Secure Password Generator',
-  description: 'Learn about the pfinal-pass project background, features, and technical implementation. Experience the safest local password generation service.',
-  ogTitle: 'About pfinal-pass - Secure Password Generator',
-  ogDescription: 'Learn about our mission, technology stack, and security commitment. Experience completely local password generation service.'
+  title: 'About Password Generator - Secure Local Password Creation Tool',
+  description: 'Learn about our secure, privacy-focused password generator. Completely local generation with no data collection. Open source and transparent password creation tool.',
+  ogTitle: 'About Our Secure Password Generator - Local Password Creation',
+  ogDescription: 'Discover our mission to provide the safest password generation service. Completely browser-based password generator with strong privacy protection and open source transparency.',
+  // Additional meta tags for better SEO
+  keywords: 'password generator, secure password tool, local password generation, privacy focused password generator, open source password tool, browser based password generator, customizable password generator, client side password generator, javascript password generator, offline password tool'
+})
+
+// Structured Data
+useHead({
+  script: [
+    {
+      type: 'application/ld+json',
+      innerHTML: JSON.stringify({
+        '@context': 'https://schema.org',
+        '@type': 'AboutPage',
+        name: 'About Our Secure Password Generator',
+        description: 'Learn about our secure, privacy-focused password generator with completely local generation.',
+        url: 'https://pwd.friday-go.icu/about',
+        mainEntity: {
+          '@type': 'WebApplication',
+          name: 'Secure Password Generator',
+          applicationCategory: 'SecurityApplication',
+          operatingSystem: 'Web Browser',
+          offers: {
+            '@type': 'Offer',
+            price: '0',
+            priceCurrency: 'USD'
+          }
+        }
+      })
+    }
+  ]
 })
 </script>

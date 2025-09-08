@@ -195,9 +195,32 @@
 
 <script setup>
 useSeoMeta({
-  title: 'Privacy Policy - Secure Password Generator',
-  description: 'Learn about pfinal-pass privacy protection policy. We promise not to collect any data and completely localize your password generation needs.',
-  ogTitle: 'Privacy Policy - pfinal-pass',
-  ogDescription: 'We are committed to protecting your privacy. All password generation is completed locally without collecting any data.'
+  title: 'Privacy Policy - Secure Password Generator with No Data Collection',
+  description: 'Learn about our strict privacy policy. Our password generator works completely locally with zero data collection, storage or transmission. Maximum privacy protection.',
+  ogTitle: 'Privacy Policy - Local Password Generator with Zero Data Collection',
+  ogDescription: 'Discover our commitment to privacy protection. Password generation happens entirely in your browser with no data collection, storage or server transmission.',
+  // Additional meta tags for better SEO
+  keywords: 'password generator privacy, no data collection password tool, local password generation, secure password privacy policy, browser based password generator, client side password generator, javascript password generator, offline password tool, privacy focused password tool, secure password privacy policy'
+})
+
+// Structured Data
+useHead({
+  script: [
+    {
+      type: 'application/ld+json',
+      innerHTML: JSON.stringify({
+        '@context': 'https://schema.org',
+        '@type': 'WebPage',
+        name: 'Privacy Policy - Secure Password Generator',
+        description: 'Our privacy policy for the secure password generator with zero data collection.',
+        url: 'https://pwd.friday-go.icu/privacy',
+        mainEntity: {
+          '@type': 'PrivacyPolicy',
+          name: 'Password Generator Privacy Policy',
+          description: 'Privacy policy for our secure, local password generation tool with no data collection.'
+        }
+      })
+    }
+  ]
 })
 </script>

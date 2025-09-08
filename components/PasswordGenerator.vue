@@ -4,10 +4,10 @@
       <div class="text-center">
         <UIcon name="i-heroicons-shield-check" class="w-8 h-8 mx-auto mb-2 text-primary-600" />
         <h1 class="text-2xl font-bold text-gray-900 dark:text-white">
-          Secure Password Generator
+          Free Online Password Generator
         </h1>
         <p class="text-sm text-gray-600 dark:text-gray-400 mt-1">
-          Safe, Fast, Local Generation
+          Safe, Fast, Local Password Generation - No Download Required
         </p>
       </div>
     </template>
@@ -66,7 +66,7 @@
       <!-- 密码长度设置 -->
       <div>
         <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-          Password Length: {{ passwordLength }}
+          Customizable Password Length: {{ passwordLength }}
         </label>
         <input
           v-model="passwordLength"
@@ -85,7 +85,7 @@
       <!-- 字符类型选择 -->
       <div>
         <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-3">
-          Character Types
+          Customizable Character Types
         </label>
         <div class="grid grid-cols-2 gap-3">
           <UCheckbox
@@ -123,7 +123,7 @@
         class="btn-hover"
       >
         <UIcon name="i-heroicons-key" class="w-5 h-5 mr-2" />
-        {{ isGenerating ? 'Generating...' : 'Generate Password' }}
+        {{ isGenerating ? 'Generating...' : 'Generate Secure Password' }}
       </UButton>
 
       <!-- 清空按钮 -->
