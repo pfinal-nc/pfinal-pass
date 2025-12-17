@@ -15,34 +15,50 @@
     <div class="space-y-6">
       <!-- 密码显示区域 -->
       <div>
-        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-          Generated Password
+        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-3">
+          Generated Passwords (5 passwords)
         </label>
-        <div class="flex items-center gap-2">
-          <UInput
-            v-model="generatedPassword"
-            :readonly="true"
-            placeholder="Click to generate password"
-            class="password-input text-center flex-1"
-            size="lg"
-          />
-          <UButton
-            v-if="generatedPassword"
-            color="gray"
-            variant="outline"
-            icon="i-heroicons-clipboard"
-            @click="copyPassword"
-            :loading="isCopying"
-            size="lg"
-          />
+        <div class="space-y-3">
+          <div 
+            v-for="(password, index) in generatedPasswords" 
+            :key="index"
+            class="flex items-center gap-2"
+          >
+            <div class="flex items-center gap-2 flex-1">
+              <span class="text-xs text-gray-500 dark:text-gray-400 w-6 text-right">
+                {{ index + 1 }}.
+              </span>
+              <UInput
+                :model-value="password"
+                :readonly="true"
+                :placeholder="`Password ${index + 1}`"
+                class="password-input text-center flex-1"
+                size="md"
+              />
+            </div>
+            <UButton
+              v-if="password"
+              color="gray"
+              variant="outline"
+              icon="i-heroicons-clipboard"
+              @click="copyPassword(password, index)"
+              :loading="copyingIndex === index"
+              size="md"
+              square
+            />
+          </div>
+          <div v-if="generatedPasswords.length === 0" class="text-center py-8 text-gray-500 dark:text-gray-400">
+            <UIcon name="i-heroicons-key" class="w-12 h-12 mx-auto mb-2 opacity-50" />
+            <p class="text-sm">Click "Generate Secure Password" to create 5 passwords</p>
+          </div>
         </div>
       </div>
 
       <!-- 密码强度指示器 -->
-      <div v-if="generatedPassword">
+      <div v-if="generatedPasswords.length > 0">
         <div class="flex items-center justify-between mb-2">
           <span class="text-sm font-medium text-gray-700 dark:text-gray-300">
-            Password Strength:
+            Average Password Strength:
           </span>
           <span 
             class="text-sm font-medium px-2 py-1 rounded-full text-xs"
@@ -123,20 +139,20 @@
         class="btn-hover"
       >
         <UIcon name="i-heroicons-key" class="w-5 h-5 mr-2" />
-        {{ isGenerating ? 'Generating...' : 'Generate Secure Password' }}
+        {{ isGenerating ? 'Generating 5 Passwords...' : 'Generate 5 Secure Passwords' }}
       </UButton>
 
       <!-- 清空按钮 -->
       <UButton
-        v-if="generatedPassword"
-        @click="clearPassword"
+        v-if="generatedPasswords.length > 0"
+        @click="clearPasswords"
         color="gray"
         variant="outline"
         size="md"
         block
       >
         <UIcon name="i-heroicons-trash" class="w-4 h-4 mr-2" />
-        Clear Password
+        Clear All Passwords
       </UButton>
 
       <!-- 提示信息 -->
@@ -161,7 +177,7 @@ const charSets = {
 }
 
 // 响应式状态
-const generatedPassword = ref('')
+const generatedPasswords = ref<string[]>([])
 const passwordLength = ref(12)
 const charTypes = ref({
   numbers: true,
@@ -170,7 +186,7 @@ const charTypes = ref({
   symbols: false
 })
 const isGenerating = ref(false)
-const isCopying = ref(false)
+const copyingIndex = ref<number | null>(null)
 const alertMessage = ref('')
 const alertColor = ref('green')
 
@@ -184,17 +200,28 @@ const selectedCharTypesCount = computed(() => {
   return Object.values(charTypes.value).filter(selected => selected).length
 })
 
-// 计算密码强度
-const strengthValue = computed(() => {
-  if (!generatedPassword.value) return 0
+// 计算单条密码强度
+function calculatePasswordStrength(password: string): number {
+  if (!password) return 0
   
-  const length = generatedPassword.value.length
+  const length = password.length
   const typesCount = selectedCharTypesCount.value
   
   if (length < 8 && typesCount <= 1) return 25
   if (length >= 8 && length <= 11 || typesCount === 2) return 50
   if (length >= 12 && typesCount >= 3) return 100
   return 25
+}
+
+// 计算平均密码强度
+const strengthValue = computed(() => {
+  if (generatedPasswords.value.length === 0) return 0
+  
+  const totalStrength = generatedPasswords.value.reduce((sum, password) => {
+    return sum + calculatePasswordStrength(password)
+  }, 0)
+  
+  return Math.round(totalStrength / generatedPasswords.value.length)
 })
 
 const strengthText = computed(() => {
@@ -232,7 +259,24 @@ const strengthDescription = computed(() => {
   return 'High password strength, good security'
 })
 
-// 生成密码函数
+// 生成单条密码
+function generateSinglePassword(): string {
+  let charPool = ''
+  Object.entries(charTypes.value).forEach(([type, selected]) => {
+    if (selected) {
+      charPool += charSets[type]
+    }
+  })
+  
+  let password = ''
+  for (let i = 0; i < passwordLength.value; i++) {
+    password += charPool[Math.floor(Math.random() * charPool.length)]
+  }
+  
+  return password
+}
+
+// 生成密码函数 - 一次生成5条
 async function generatePassword() {
   if (!hasSelectedCharTypes.value) {
     showAlert('Please select at least one character type', 'red')
@@ -245,20 +289,14 @@ async function generatePassword() {
     // 模拟生成延迟，提供更好的用户体验
     await new Promise(resolve => setTimeout(resolve, 300))
     
-    let charPool = ''
-    Object.entries(charTypes.value).forEach(([type, selected]) => {
-      if (selected) {
-        charPool += charSets[type]
-      }
-    })
-    
-    let password = ''
-    for (let i = 0; i < passwordLength.value; i++) {
-      password += charPool[Math.floor(Math.random() * charPool.length)]
+    // 生成5条密码
+    const passwords: string[] = []
+    for (let i = 0; i < 5; i++) {
+      passwords.push(generateSinglePassword())
     }
     
-    generatedPassword.value = password
-    showAlert('Password generated successfully!', 'green')
+    generatedPasswords.value = passwords
+    showAlert('5 passwords generated successfully!', 'green')
   } catch (error) {
     showAlert('Password generation failed, please try again', 'red')
   } finally {
@@ -267,39 +305,39 @@ async function generatePassword() {
 }
 
 // 复制密码函数
-async function copyPassword() {
-  if (!generatedPassword.value) {
-    showAlert('Please generate a password first', 'red')
+async function copyPassword(password: string, index: number) {
+  if (!password) {
+    showAlert('Please generate passwords first', 'red')
     return
   }
 
-  isCopying.value = true
+  copyingIndex.value = index
 
   try {
-    await navigator.clipboard.writeText(generatedPassword.value)
-    showAlert('Copied successfully!', 'green')
+    await navigator.clipboard.writeText(password)
+    showAlert(`Password ${index + 1} copied successfully!`, 'green')
   } catch (error) {
     // 降级方案：创建临时文本区域
     const textArea = document.createElement('textarea')
-    textArea.value = generatedPassword.value
+    textArea.value = password
     document.body.appendChild(textArea)
     textArea.select()
     try {
       document.execCommand('copy')
-      showAlert('Copied successfully!', 'green')
+      showAlert(`Password ${index + 1} copied successfully!`, 'green')
     } catch (fallbackError) {
       showAlert('Copy failed, please copy manually', 'red')
     }
     document.body.removeChild(textArea)
   } finally {
-    isCopying.value = false
+    copyingIndex.value = null
   }
 }
 
 // 清空密码函数
-function clearPassword() {
-  generatedPassword.value = ''
-  showAlert('Password cleared', 'gray')
+function clearPasswords() {
+  generatedPasswords.value = []
+  showAlert('All passwords cleared', 'gray')
 }
 
 // 显示提示信息
